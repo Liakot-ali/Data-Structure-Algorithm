@@ -72,27 +72,58 @@ void Delete(int pos){
             cout<<"There is no item to delete"<<endl;
             return;
         }
-        int counter = 0;
-        node* temp = head;
-        while(temp->next != NULL){
-            node* inc = temp->next;
-            if(inc->next == NULL){
-                temp ->next = NULL;
-                return;
-            }
-            temp = temp->next;
+        if(pos == 1){
+            node* temp = head;
+            head = temp->next;
         }
-        head = NULL;
-        return;
+        else{
+            int counter = 1;
+            node* temp = head;
+            while(temp->next != NULL){
+                counter++;
+                if(counter == pos){
+                    node* afterPos = temp->next;
+                    temp->next = afterPos->next;
+                    return;
+                }
+                /*node* inc = temp->next;
+                if(inc->next == NULL){
+                    temp ->next = NULL;
+                    return;
+                }
+                temp = temp->next;*/
+            }
+            cout<<"Invalid position"<<endl;
+            return;
+        }
     }else{
         cout<<"Invalid position"<<endl;
     }
     return;
 }
 
+void Search(int value){
+    if(head == NULL){
+        cout<<"The list is empty"<<endl;
+        return;
+    }
+    node* temp = head;
+    while(temp->next != NULL){
+        if(temp->data == value){
+            cout<<"The value is in the list"<<endl;
+            return;
+        }
+        temp = temp->next;
+    }
+    if(temp->data == value){
+        cout<<"The value is in the list"<<endl;
+    }else{
+        cout<<"The value is not in the list"<<endl;
+    }
+    return;
+}
 void display()
 {
-
     node* n = head;
     if(head == NULL)
     {
@@ -113,7 +144,8 @@ int main()
     while(true)
     {
         int input;
-        printf("Input:\n\t 1.For adding data\n\t 2.For Display list\n\t 3.For delete a element\n\t 0.For exit\n");
+        printf("Input:\n\t 1.For adding data\n\t 2.For Display list\n\t 3.For delete a element\n\t"
+                " 4.For search a value\n\t 0.For exit\n");
         cin>>input;
         if(input == 1)
         {
@@ -128,7 +160,17 @@ int main()
         }
         else if(input == 3)
         {
-            Delete(1);
+            display();
+            int pos;
+            cout<<"Which position value do you want to delete? ";
+            cin>>pos;
+            Delete(pos);
+        }
+        else if(input == 4){
+            int val;
+            cout<<"Which value you want to search? ";
+            cin>>val;
+            Search(val);
         }
         else if(input == 0)
         {
