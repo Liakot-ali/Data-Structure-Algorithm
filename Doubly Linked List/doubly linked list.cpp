@@ -14,25 +14,32 @@ public:
     }
 };
 node* head = NULL;
+node* tail = NULL;
 
 void InsertTail(int value){
     node* n = new node(value);
-    if(head == NULL){
+    if(head == NULL){   //when add value for first time
         head = n;
+        tail = n;
         return;
     }
-    node* temp = head;
+    n->pre = tail;
+    tail->next = n;
+    tail = n;
+
+    /*node* temp = head;
     while(temp->next != NULL){
-        temp = temp->next;
+        temp = temp->next; //using head pointer
     }
     temp->next = n;
-    n->pre = temp;
+    n->pre = temp;*/
 }
 void InsertHead(int value){
     node* n = new node(value);
     if(head == NULL)
     {
         head = n;
+        tail = n;
         return;
     }
     n->next = head;
@@ -40,7 +47,7 @@ void InsertHead(int value){
     head = n;
 }
 
-void display(){
+void displayForward(){
     node* temp = head;
     while(temp->next != NULL){
         cout<<temp->data<<" ";
@@ -48,17 +55,23 @@ void display(){
     }
     cout<<temp->data<<endl;
 }
+void displayBackward(){
+    node* tmp = tail;
+    while(tmp->pre != NULL){
+        cout<<tmp->data<<" ";
+        tmp = tmp->pre;
+    }
+    cout<<tmp->data<<endl;
+}
 
 int main(){
     cout<<"This is doubly linked list program"<<endl;
     InsertTail(5);
-    display();
+    displayForward();
     InsertTail(55);
-    display();
     InsertHead(15);
-    display();
     InsertTail(25);
-    display();
+    displayBackward();
 
     return 0;
 }
