@@ -78,6 +78,26 @@ void DeleteHead(){
     temp->pre = head->pre;
     head = temp;
 }
+void Search(int value){
+    if(head == NULL){
+        cout<<"The list is empty"<<endl;
+        return;
+    }
+    node* temp = head;
+    while(temp->next != NULL){
+        if(temp->data == value){
+            cout<<"The value is in the list"<<endl;
+            return;
+        }
+        temp = temp->next;
+    }
+    if(temp->data == value){
+        cout<<"The value is in the list"<<endl;
+    }else{
+        cout<<"Not is the list"<<endl;
+    }
+    return;
+}
 
 void displayForward(){
     if(head == NULL){
@@ -158,13 +178,10 @@ int main(){
             }
         }
         else if(input == 4){
-            cout<<"Under construction"<<endl;
-            /*
             int val;
             cout<<"Which value you want to search? ";
             cin>>val;
             Search(val);
-            */
         }
         else if(input == 0)
         {
