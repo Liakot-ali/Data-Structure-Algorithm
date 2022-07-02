@@ -86,6 +86,26 @@ void deleteHead(){
     return;
 
 }
+void searchList(int val){
+    if(head == NULL){
+        cout<<"The list is empty"<<endl;
+        return;
+    }
+    node* temp = head;
+    while(temp->next != head){
+        if(temp->data == val){
+            cout<<"The value is in the list"<<endl;
+            return;
+        }
+        temp = temp->next;
+    }
+    if(temp->data == val){
+        cout<<"The value is in the list"<<endl;
+    }else{
+        cout<<"Not in the list"<<endl;
+    }
+    return;
+}
 bool display(){
     if(head == NULL){
         cout<<"The list is empty"<<endl;
@@ -151,12 +171,10 @@ int main(){
             }
         }
         else if(input == 4){
-            cout<<"Under construction"<<endl;
-            /*int val;
+            int val;
             cout<<"Which value you want to search? ";
             cin>>val;
-            Search(val);
-            */
+            searchList(val);
         }
         else if(input == 0)
         {
