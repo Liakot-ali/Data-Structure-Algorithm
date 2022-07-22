@@ -55,6 +55,40 @@ void displayInorder(node* root)  ///-------Traversing the BST in InOrder----
     cout<<root->data<<" ";
     displayInorder(root->right);
 }
+
+node* inorderSucc(node* root){
+    node* current = root;
+    while(current != NULL && current->left != NULL){
+        current = current->left;
+    }
+    return current;
+}
+
+node* deleteNode(node* root, int key)
+{
+    if(key > root->data){
+        root->right = deleteNode(root->right, key);
+    }else if(key < root->data){
+        root->left = deleteNode(root->left, key);
+    }else{
+        //-CASE 1---
+        if(root->left == NULL){
+            node* temp = root->right;
+            free(root);
+            return temp;
+        } //-CASE 2---
+        else if(root->right == NULL){
+            node* temp = root->left;
+            free(root);
+            return temp;
+        }
+        //---CASE 3-----
+        node* temp = inorderSucc(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
+    }
+    return root;
+}
 bool Search(node* root, int val)
 {
     if(R == NULL)
@@ -89,7 +123,7 @@ int main()
     {
         int input;
         printf("Input:\n\t 1.For insert data\n\t 2.For Show the BST in InOrder\n\t 3.For search a value\n\t"
-               " 0.For exit\n");
+               " 4.For delete a node\n\t 0.For exit\n");
         cin>>input;
         if(input == 1)
         {
@@ -117,6 +151,12 @@ int main()
                 cout<<"Sorry"<<endl;
             }
         }
+        else if(input == 4){
+            int val;
+            cout<<"Input the value:";
+            cin>>val;
+            deleteNode(R,val);
+        }
         else if(input == 0)
         {
             return 0;
@@ -127,7 +167,7 @@ int main()
         }
     }
 
-    /*
+/*
     insertNode(R, 55);
     insertNode(R, 10);
     insertNode(R, 7);
@@ -136,7 +176,11 @@ int main()
     insertNode(R, 5);
     insertNode(R, 4);
     insertNode(R, 70);
-    inorder(R);
-    */
+    displayInorder(R);
+    deleteNode(R, 15);
+    displayInorder(R);
+    deleteNode(R, 55);
+    displayInorder(R);
+*/
     return 0;
 }
