@@ -66,6 +66,11 @@ node* inorderSucc(node* root){
 
 node* deleteNode(node* root, int key)
 {
+    if(root == NULL){
+        cout<<"The value is not in BST"<<endl;
+        return root;
+    }
+    //------searching the value in the BST------
     if(key > root->data){
         root->right = deleteNode(root->right, key);
     }else if(key < root->data){
@@ -83,7 +88,7 @@ node* deleteNode(node* root, int key)
             return temp;
         }
         //---CASE 3-----
-        node* temp = inorderSucc(root->right);
+        node* temp = inorderSucc(root->right); //----The next value of the root in Inorder traversal-------
         root->data = temp->data;
         root->right = deleteNode(root->right, temp->data);
     }
@@ -155,7 +160,7 @@ int main()
             int val;
             cout<<"Input the value:";
             cin>>val;
-            deleteNode(R,val);
+            R = deleteNode(R,val);
         }
         else if(input == 0)
         {
