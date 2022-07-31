@@ -2,7 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int capacity = 5;
+int capacity = 10000;
 
 class minHeap
 {
@@ -45,9 +45,65 @@ public:
         }
     }
 
+    void extractMin(){
+        if(currSize == 0){
+            return;
+        }
+        if(currSize == 1){
+            currSize--;
+            return;
+        }
+        currSize--;
+        arr[0] = arr[currSize];
+        minHeapify(0);
+
+    }
+
+    void minHeapify(int root){
+        int left = leftChild(root);
+        int right = rightChild(root);
+        int small = root;
+        if(left < currSize && arr[root] > arr[left]){
+            small = left;
+        }
+        if(right < currSize && arr[right] < arr[small]){
+            small = right;
+        }
+        if(small != root){
+            swap(arr[root], arr[small]);
+            minHeapify(small);
+        }
+        return;
+    }
+
+    int leftChild(int i){
+        return 2*i + 1;
+    }
+    int rightChild(int i){
+        return 2*i + 2;
+    }
+    void linearSearch(int val)
+    {
+
+        for(int i=0; i<currSize; i++)
+        {
+            if(arr[i] == val)
+            {
+                cout<<"Found"<<endl;
+                return;
+            }
+        }
+        cout<<"Not found"<<endl;
+        return;
+    }
+
     void display()
     {
-        cout<<"Current Size: "<<currSize<<endl;
+        if(currSize == 0){
+            cout<<"The array is empty"<<endl;
+            return;
+        }
+        //cout<<"Current Size: "<<currSize<<endl;
         for(int i=0; i< currSize; i++)
         {
             cout<<arr[i]<<" ";
@@ -69,7 +125,7 @@ int main()
     {
         int input;
         printf("Input:\n\t 1.For insert data\n\t 2.For display the array\n\t 3.For search a value\n\t"
-               " 4.For delete a value/key\n\t 0.For exit\n");
+               " 4.For delete a value/key\n\t 5.For extract minimum value\n\t 0.For exit\n");
         cin>>input;
         if(input == 1)
         {
@@ -84,30 +140,31 @@ int main()
         }
         else if(input == 3)
         {
+            if(heap.currSize == 0)
+            {
+                cout<<"The array is empty"<<endl;
+            }else{
+                int value;
+                cout<<"Enter the value: ";
+                cin>>value;
+                heap.linearSearch(value);
+            }
+        }
+        else if(input == 4)
+        {
             cout<<"Under construction"<<endl;
             /*
-            int value;
-            cout<<"Enter the value: ";
-            cin>>value;
-            if(Search(R, value))
-            {
-                cout<<"Got it"<<endl;
-            }
-            else
-            {
-                cout<<"Sorry"<<endl;
-            }
-            */
-        }
-        else if(input == 4){
-
-            cout<<"Under construction"<<endl;
-                /*
             int val;
             cout<<"Input the value:";
             cin>>val;
             R = deleteNode(R,val);
             */
+        }
+        else if(input == 5)
+        {
+            heap.display();
+            heap.extractMin();
+            heap.display();
         }
         else if(input == 0)
         {
