@@ -96,6 +96,29 @@ public:
         cout<<"Not found"<<endl;
         return;
     }
+    void displayTree(){
+        int index = 0;
+        for(int i=0; i<treeHeight();i++){
+            for(int j=i;j<treeHeight()-1;j++){
+                cout<<"\t";
+            }
+            cout<<" ";
+            for(int k=0;k<=i;k++){
+                cout<<arr[index++]<<"\t";
+            }
+            cout<<endl;
+            if(i+1 != treeHeight()){
+                for(int j=i;j<treeHeight()-1;j++){
+                    cout<<"\t";
+                }
+                cout<<"/ \\"<<endl;
+            }
+        }
+
+    }
+    int treeHeight(){
+        return log2(currSize) + 1;
+    }
 
     void display()
     {
@@ -201,6 +224,13 @@ int main()
     heap.display();
     heap.InsertKey(4);
     heap.display();
+
+
+            10
+           /  \
+          15  20
+         /  \   \
+        21  26  35
     */
 
     return 0;
